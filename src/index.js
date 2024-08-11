@@ -106,7 +106,8 @@ app.post('/prompt',async (req,res)=>
 
 app.post('/NewChat',async (req,res)=>
   {      
-      res.render("mainpage",{objectArray: JSON.stringify([])});
+      objectArray = []
+      res.render("mainpage",{objectArray: JSON.stringify(objectArray)});
   });
 
 
