@@ -72,6 +72,7 @@ app.use(express.urlencoded({extended: false}));
 
 app.get('/',async (req,res)=>
 {
+    objectArray = []
     res.render("mainpage",{objectArray: JSON.stringify(objectArray)});
 });
 
