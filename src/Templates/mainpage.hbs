@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Clone</title>
+    <style>
+        /* styles.css */
+        
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1E1E1E;
+    color: #D1D5DB;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: #202123;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.sidebar-header {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #d1d5db;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.menu li {
+    padding: 10px;
+    color: #d1d5db;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.menu li:hover {
+    background-color: #3E3F4B;
+}
+
+.chat-area {
+    flex: 1;
+    background-color: #343541;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.chat-header {
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #3E3F4B;
+    background-color: #2C2C34;
+    color: #D1D5DB;
+    font-size: 16px;
+}
+
+.chat-window {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #1E1E1E;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.bot-message .avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message-text {
+    background-color: #3E3F4B;
+    padding: 10px 15px;
+    border-radius: 8px;
+    max-width: 75%;
+    line-height: 1.5;
+    color: #D1D5DB;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-text {
+    background-color: #056162;
+    color: #FFFFFF;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2C2C34;
+    border-top: 1px solid #565869;
+}
+
+#attach-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-input {
+    flex: 1;
+    background-color: #2C2C34;
+    border: 1px solid #565869;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    height: 40px;
+    font-size: 14px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+#send-btn {
+    background-color: #10A37F;
+    border: none;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#send-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: white;
+}
+
+#send-btn:hover {
+    background-color: #0E8B71;
+}
+
+
+form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>ChatGPT</h2>
+            </div>
+            <ul class="menu">
+                <li>Explore GPTs</li>
+                <li>Greeting and Response</li>
+                <li>Basic ChatGPT Interface</li>
+                <li>Find Needle In Haystack</li>
+                <li>OpenAI Package Costs</li>
+                <li>Understanding .tsx Files</li>
+                <li>See more</li>
+            </ul>
+        </div>
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <h2>ChatGPT</h2>
+            </div>
+            <div class="chat-window" id="chat-window1">
+                <div class="message bot-message">
+                        <div class="avatar">
+                            <img src="https://openai.com/favicon.ico" alt="bot avatar">
+                        </div>
+                        <div class="message-text">Hi there! How's it going?</div>
+                </div>
+                {{!-- {{#each objectArray}}
+                    <div class="message user-message">
+                        <div class="user-avatar"></div>
+                        <div class="message-text">{{user}}</div>
+                    </div>
+                    <div class="message bot-message">
+                        <div class="avatar">
+                            <img src="https://openai.com/favicon.ico" alt="bot avatar">
+                        </div>
+                        <div class="message-text">{{AI}}</div>
+                    </div>
+                {{/each}} --}}
+            </div>
+            <div class="chat-input">
+                <button id="attach-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12V7a2 2 0 0 0-2-2h-3"></path>
+                        <path d="M7 17V7a5 5 0 0 1 10 0v10a3 3 0 1 1-6 0V8"></path>
+                    </svg>
+                </button>
+                <form action="/prompt" method="post">
+                    <textarea id="user-input" placeholder="Message ChatGPT" name="input"></textarea>
+                    <button id="send-btn" type="submit" name="button" value="HI">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    // script.js
+
+    function sendMessage() {
+        const userInput = document.getElementById('user-input').value.trim();
+        if (userInput === '') return;
+
+        appendMessage(userInput, 'user-message');
+
+        setTimeout(() => {
+            const botResponse = getBotResponse(userInput);
+            appendMessageWithAnimation(botResponse, 'bot-message');
+        }, 500);
+
+        document.getElementById('user-input').value = '';
+    }
+
+    function appendMessage(text, className) {
+        const chatWindow = document.querySelector('.chat-window');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${className}`;
+        
+        if (className === 'bot-message') {
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            const img = document.createElement('img');
+            img.src = 'https://openai.com/favicon.ico';
+            avatar.appendChild(img);
+            messageDiv.appendChild(avatar);
+        }
+
+        const messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        messageText.textContent = text;
+        messageDiv.appendChild(messageText);
+
+        chatWindow.appendChild(messageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function appendMessageWithAnimation(text, className) {
+        const chatWindow = document.querySelector('.chat-window');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${className}`;
+        
+        if (className === 'bot-message') {
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            const img = document.createElement('img');
+            img.src = 'https://openai.com/favicon.ico';
+            avatar.appendChild(img);
+            messageDiv.appendChild(avatar);
+        }
+
+        const messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        messageDiv.appendChild(messageText);
+
+        chatWindow.appendChild(messageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        let index = 0;
+        const delay = 10; // Adjust delay for typing speed
+        const interval = setInterval(() => {
+            if (index < text.length) {
+                messageText.innerHTML += text[index] === '\n' ? '<br>' : text[index];
+                index++;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            } else {
+                clearInterval(interval);
+            }
+        }, delay);
+    }
+
+    function getBotResponse(userInput) {
+        // Placeholder bot response logic
+        return "This is a simulated response. The actual response would come from a server.";
+    }
+
+    // Simulate loading previous messages
+    let userInput = document.getElementById('chat-window1');
+    const objectArray = {{{objectArray}}};  // Assuming this is handled by your server-side templating
+    for(let i = 0; i < objectArray.length; i++) {
+        userInput.innerHTML += `<div class="message user-message">
+                            <div class="user-avatar"></div>
+                            <div class="message-text">${objectArray[i].user}</div>
+                        </div>`;
+        if (i === objectArray.length - 1) {
+            let Ai = objectArray[i].AI;
+            appendMessageWithAnimation(Ai, 'bot-message');
+        } else {
+            let Ai = objectArray[i].AI;
+            let formattedMessage = Ai.replace(/\n/g, '<br>');
+            formattedMessage = formattedMessage.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            userInput.innerHTML += `<div class="message bot-message">
+                            <div class="avatar">
+                                <img src="https://openai.com/favicon.ico" alt="bot avatar">
+                            </div>
+                            <div class="message-text">${formattedMessage}</div>
+                        </div>`;
+        }
+    }
+    scrollToBottom(userInput);
+</script>
+
+</body>
+</html>
