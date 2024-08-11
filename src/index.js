@@ -103,6 +103,14 @@ app.post('/prompt',async (req,res)=>
 
 
 
+
+app.post('/NewChat',async (req,res)=>
+  {      
+      res.render("mainpage",{objectArray: JSON.stringify([])});
+  });
+
+
+
 app.listen(port,'localhost',()=>{
     console.log(`Listening on port number : ${port}`);
 });

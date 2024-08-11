@@ -60,6 +60,22 @@ body {
     background-color: #3E3F4B;
 }
 
+.menu-button {
+    padding: 10px;
+    background-color: #10A37F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.menu-button:hover {
+    background-color: #0E8B71;
+}
+
 .chat-area {
     flex: 1;
     background-color: #343541;
@@ -172,7 +188,6 @@ body {
     background-color: #0E8B71;
 }
 
-
 form {
     display: flex;
     align-items: center;
@@ -188,11 +203,15 @@ form {
             <div class="sidebar-header">
                 <h2>Ask AI</h2>
             </div>
+                <form action="/NewChat" method="post">
+                    <button type="submit" class="menu-button">New Chat</button>
+                </form>
             <ul class="menu">
                 <li>Explore AI</li>
                 <li>How to create Repositary</li>
                 <li>How to push changes in code</li>
                 <li>See more</li>
+                <!-- New button in the sidebar -->
             </ul>
         </div>
         <!-- Chat Area -->
@@ -207,18 +226,6 @@ form {
                         </div>
                         <div class="message-text">Hi there! How's it going?</div>
                 </div>
-                {{!-- {{#each objectArray}}
-                    <div class="message user-message">
-                        <div class="user-avatar"></div>
-                        <div class="message-text">{{user}}</div>
-                    </div>
-                    <div class="message bot-message">
-                        <div class="avatar">
-                            <img src="https://openai.com/favicon.ico" alt="bot avatar">
-                        </div>
-                        <div class="message-text">{{AI}}</div>
-                    </div>
-                {{/each}} --}}
             </div>
             <div class="chat-input">
                 <button id="attach-btn">
